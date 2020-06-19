@@ -130,10 +130,12 @@ asyncData () {
 .icon {
   color: orange;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .icon-like {
   color: red;
   font-size: 30px;
+  cursor: pointer;
 }
 </style>
