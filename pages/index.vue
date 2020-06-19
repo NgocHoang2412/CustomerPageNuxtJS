@@ -4,11 +4,14 @@
        <h1 class="title">
         Welcome to Customer Page
       </h1>
-      <div class="list-time" v-for="item in items" :key="item.id">
+      
+      <div class="list-time" v-for="(item, index) in items" :key="item.id">
         <h2 
-          >{{item.name }}
+          >{{item.name}}
         </h2>
-        <font-awesome-icon :icon="['fas', 'thumbs-up']" @click="onclickLike"/>
+        
+        <font-awesome-icon :icon="['fas', 'thumbs-up']" v-bind:class="{'icon': item.categoryID==0,  'icon-like': item.categoryID>0}" @click="onclickLike({index})"/>
+        
       </div>
      
       <h2 class="subtitle">
@@ -42,10 +45,13 @@ export default {
 
 created() {
     this.getItemsLocalStorage();
+    for(let i=0; i<this.items.length; i++){
+      this.items[i].categoryID = 0;
+    }
 },
 data () {
     return {
-      items: {}
+      items: [],
     }
   },
 asyncData () {
@@ -57,7 +63,6 @@ asyncData () {
         error({ statusCode: 404, message: 'Not found' })
       })
   },
-
   methods: {
     getItemsLocalStorage(){
       if(process.browser){
@@ -67,8 +72,9 @@ asyncData () {
         }
       }
     },
-    onclickLike(){
-      console.log("click like here")
+    onclickLike(index){
+      let newValue = 1 - this.items[index.index].categoryID;
+      this.items[index.index].categoryID = newValue;
     }
   },
    components: {
@@ -119,5 +125,15 @@ asyncData () {
   padding-left: 200px;
   padding-right: 200px;
   background-color: powderblue;
+}
+
+.icon {
+  color: orange;
+  font-size: 30px;
+}
+
+.icon-like {
+  color: red;
+  font-size: 30px;
 }
 </style>
