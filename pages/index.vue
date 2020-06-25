@@ -10,7 +10,7 @@
           >{{item.name}}
         </h2>
         
-        <font-awesome-icon :icon="['fas', 'thumbs-up']" v-bind:class="{'icon': item.categoryID==0,  'icon-like': item.categoryID>0}" @click="onclickLike({index})"/>
+        <font-awesome-icon :icon="['fas', 'thumbs-up']" v-bind:class="{'icon': item.likeStatus==0,  'icon-like': item.likeStatus==1}" @click="onclickLike({index})"/>
         
       </div>
      
@@ -46,272 +46,65 @@ export default {
 created() {
     this.getItemsLocalStorage();
     for(let i=0; i<this.items.length; i++){
-      this.items[i].categoryID = 0;
+      this.items[i].likeStatus = 0;
     }
 },
 data () {
     return {
-      items: [{
-  "_id": {
-    "$oid": "5ed857465bdd121d5ceb9d59"
-  },
-  "name": "Cafe Đá",
-  "imageURL": "/cafeden.jpg",
-  "defaultPrice": 18000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Cafe đá pha mang nét truyền thống!",
-  "createdAt": {
-    "$date": "2020-06-04T02:07:02.493Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-04T02:07:02.493Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee701ea8808511f54533666"
-  },
-  "name": "Cafe Sữa Đá",
-  "imageURL": "/cafesuada.jpg",
-  "defaultPrice": 20000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Cafe sữa đá pha chút ngọt ngào!",
-  "createdAt": {
-    "$date": "2020-06-15T05:06:50.313Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:06:50.313Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee7067e8808511f54533668"
-  },
-  "name": "Americano",
-  "imageURL": "/americano.jpg",
-  "defaultPrice": 30000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Americano mang nét hiện đại",
-  "createdAt": {
-    "$date": "2020-06-15T05:26:22.745Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:26:22.745Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee7075b8808511f54533669"
-  },
-  "name": "Bạc Sỉu",
-  "imageURL": "/bacsiu.jpg",
-  "defaultPrice": 20000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Bạc Sỉu đậm đà",
-  "createdAt": {
-    "$date": "2020-06-15T05:30:03.780Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:30:03.780Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee707a28808511f5453366a"
-  },
-  "name": "Cappucinno",
-  "imageURL": "/cappucinno.jpg",
-  "defaultPrice": 40000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Cappucinno",
-  "createdAt": {
-    "$date": "2020-06-15T05:31:14.665Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:31:14.665Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee707d38808511f5453366b"
-  },
-  "name": "Caramel Macchiato",
-  "imageURL": "/caramelmacchiato.jpg",
-  "defaultPrice": 50000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Caramel Macchiato",
-  "createdAt": {
-    "$date": "2020-06-15T05:32:03.260Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:32:03.260Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee7080f8808511f5453366c"
-  },
-  "name": "Espresso",
-  "imageURL": "/espresso.jpg",
-  "defaultPrice": 30000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Espresso",
-  "createdAt": {
-    "$date": "2020-06-15T05:33:03.646Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:33:03.646Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee708308808511f5453366d"
-  },
-  "name": "Latte",
-  "imageURL": "/latte.jpg",
-  "defaultPrice": 40000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Latte",
-  "createdAt": {
-    "$date": "2020-06-15T05:33:36.738Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:33:36.738Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee708448808511f5453366e"
-  },
-  "name": "Mocha",
-  "imageURL": "/mocha.jpg",
-  "defaultPrice": 40000,
-  "categoryID": 2,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Mocha",
-  "createdAt": {
-    "$date": "2020-06-15T05:33:56.190Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:33:56.190Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee708748808511f5453366f"
-  },
-  "name": "Trà Oolong Hạt Sen",
-  "imageURL": "/oolongsen.jpg",
-  "defaultPrice": 40000,
-  "categoryID": 3,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Trà Oolong Hạt Sen",
-  "createdAt": {
-    "$date": "2020-06-15T05:34:44.309Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:34:44.309Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee708888808511f54533670"
-  },
-  "name": "Trà Oolong Vải",
-  "imageURL": "/oolongvai.jpg",
-  "defaultPrice": 40000,
-  "categoryID": 3,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Trà Oolong Vải",
-  "createdAt": {
-    "$date": "2020-06-15T05:35:04.013Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:35:04.013Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee708ac8808511f54533671"
-  },
-  "name": "Phúc Bồn Tử",
-  "imageURL": "/phucbontu.jpg",
-  "defaultPrice": 45000,
-  "categoryID": 3,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Phúc Bồn Tử",
-  "createdAt": {
-    "$date": "2020-06-15T05:35:40.594Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:35:40.594Z"
-  }
-},{
-  "_id": {
-    "$oid": "5ee708cb8808511f54533672"
-  },
-  "name": "Trà Đào Cam Sả",
-  "imageURL": "/tradaocamsa.jpg",
-  "defaultPrice": 45000,
-  "categoryID": 3,
-  "unit": "đ",
-  "size": {
-    "Big": 10000,
-    "Medium": 5000
-  },
-  "description": "Trà Đào Cam Sả",
-  "createdAt": {
-    "$date": "2020-06-15T05:36:11.748Z"
-  },
-  "updatedAt": {
-    "$date": "2020-06-15T05:36:11.748Z"
-  }
-}],
+      items: [
+    {
+    "id": 1,
+    "name": "Cafe Đá",
+    "likeStatus": 0
+    },{
+    "id": 2,
+    "name": "Cafe Sữa Đá",
+    "likeStatus": 0
+  },{
+    "id": 3,
+    "name": "Americano",
+    "likeStatus": 0
+  },{
+    "id": 4,
+    "name": "Bạc Sỉu",
+    "likeStatus": 0
+  },{
+    "id": 5,
+    "name": "Cappucinno",
+    "likeStatus": 0
+  },{
+    "id": 6,
+    "name": "Caramel Macchiato",
+    "likeStatus": 0
+  },{
+    "id": 7,
+    "name": "Espresso",
+    "likeStatus": 0
+  },{
+    "id": 8,
+    "name": "Latte",
+    "likeStatus": 0
+  },{
+    "id": 9,
+    "name": "Mocha",
+    "likeStatus": 0
+  },{
+    "id": 10,
+    "name": "Trà Oolong Hạt Sen",
+    "likeStatus": 0
+  },{
+    "id": 11,
+    "name": "Trà Oolong Vải",
+    "likeStatus": 0
+  },{
+    "id": 12,
+    "name": "Phúc Bồn Tử",
+    "likeStatus": 0
+  },{
+    "id": 13,
+    "name": "Trà Đào Cam Sả",
+    "likeStatus": 0
+  }],
     }
   },
 // asyncData () {
@@ -333,8 +126,8 @@ data () {
       }
     },
     onclickLike(index){
-      let newValue = 1 - this.items[index.index].categoryID;
-      this.items[index.index].categoryID = newValue;
+      let newValue = 1 - this.items[index.index].likeStatus;
+      this.items[index.index].likeStatus = newValue;
     }
   },
    components: {
